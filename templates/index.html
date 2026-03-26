@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NetPulse — Network Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg:        #0a0c10;
+            --surface:   #111418;
+            --surface2:  #181c22;
+            --border:    #23282f;
+            --accent:    #00e5a0;
+            --accent2:   #4f7fff;
+            --warn:      #ff6b4a;
+            --text:      #e8ecf0;
+            --muted:     #6b7585;
+            --fast:      #00e5a0;
+            --medium:    #4f7fff;
+            --slow:      #ff6b4a;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            padding: 32px 24px 60px;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--accent); }
+        .tagline {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            margin-top: 4px;
+        }
+        .timestamp {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            text-align: right;
+        }
+        .live-dot {
+            display: inline-block;
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-right: 6px;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        /* ── ALERT ── */
+        .alert {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,107,74,0.08);
+            border: 1px solid rgba(255,107,74,0.3);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--warn);
+        }
+        .alert-icon { font-size: 18px; flex-shrink: 0; }
+        .alert strong { color: #fff; font-family: 'DM Mono', monospace; }
+
+        /* ── KPI GRID ── */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .kpi {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .kpi:hover { border-color: var(--accent); }
+        .kpi::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .kpi:hover::before { opacity: 1; }
+        .kpi-label {
+            font-size: 11px;
+            font-family: 'DM Mono', monospace;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .kpi-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text);
+        }
+        .kpi-unit {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        .kpi.accent .kpi-value  { color: var(--accent); }
+        .kpi.warn   .kpi-value  { color: var(--warn); }
+        .kpi.blue   .kpi-value  { color: var(--accent2); }
+
+        /* ── BADGE ── */
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-family: 'DM Mono', monospace;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+        .badge-green  { background: rgba(0,229,160,0.12); color: var(--accent); }
+        .badge-red    { background: rgba(255,107,74,0.12); color: var(--warn); }
+        .badge-blue   { background: rgba(79,127,255,0.12); color: var(--accent2); }
+
+        /* ── CHARTS ROW ── */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .chart-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        canvas { max-height: 220px; }
+
+        /* ── TABLE ── */
+        .table-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .table-header {
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .table-header h3 {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        .row-count {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            background: var(--surface2);
+            border-radius: 4px;
+            padding: 2px 7px;
+            color: var(--muted);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        thead th {
+            background: var(--surface2);
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 10px 20px;
+            text-align: left;
+            font-weight: 500;
+        }
+        tbody td {
+            padding: 11px 20px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover td { background: var(--surface2); }
+
+        .url-cell {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--accent2);
+            max-width: 320px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .speed-bar-wrap { display: flex; align-items: center; gap: 10px; }
+        .speed-bar-bg {
+            flex: 1;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            max-width: 100px;
+        }
+        .speed-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+        .speed-val { font-family: 'DM Mono', monospace; font-size: 12px; min-width: 48px; }
+
+        .time-cell {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .status-ok   { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 11px; }
+        .status-fail { color: var(--warn);   font-family: 'DM Mono', monospace; font-size: 11px; }
+
+        /* ── FOOTER ── */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 11px;
+            font-family: 'DM Mono', monospace;
+            color: var(--muted);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+        }
+        .empty-state .icon { font-size: 36px; margin-bottom: 12px; }
+
+        @media (max-width: 900px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .charts-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 500px) {
+            .kpi-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="max-width:1140px;margin:auto;">
+
+    <!-- HEADER -->
+    <header>
+        <div>
+            <div class="logo">Net<span>Pulse</span></div>
+            <div class="tagline">network throughput monitor // 24-hr analysis</div>
+        </div>
+        <div class="timestamp">
+            <span class="live-dot"></span>Last updated<br>
+            <strong style="color:var(--text);">{{ summary.last_updated if summary.last_updated else "—" }}</strong>
+        </div>
+    </header>
+
+    <!-- ALERT -->
+    {% if summary.congestion_hours %}
+    <div class="alert">
+        <span class="alert-icon">⚠</span>
+        <div>
+            Congestion detected at
+            {% for t in summary.congestion_hours %}
+                <strong>{{ t }}</strong>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            — speeds dropped below 70% of average
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- KPI ROW 1 -->
+    <div class="kpi-grid">
+        <div class="kpi accent">
+            <div class="kpi-label">Avg Speed</div>
+            <div class="kpi-value">{{ summary.average_speed_MBps }}</div>
+            <div class="kpi-unit">MB / s</div>
+        </div>
+        <div class="kpi blue">
+            <div class="kpi-label">Peak Speed</div>
+            <div class="kpi-value">{{ summary.max_speed_MBps }}</div>
+            <div class="kpi-unit">MB / s</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Data Transferred</div>
+            <div class="kpi-value">{{ summary.total_data_MB }}</div>
+            <div class="kpi-unit">Megabytes</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Total Downloads</div>
+            <div class="kpi-value">{{ summary.total_downloads }}</div>
+            <div class="kpi-unit">successful</div>
+        </div>
+    </div>
+
+    <!-- KPI ROW 2 -->
+    <div class="kpi-grid">
+        <div class="kpi {% if summary.failed_downloads > 0 %}warn{% endif %}">
+            <div class="kpi-label">Failed</div>
+            <div class="kpi-value">{{ summary.failed_downloads }}</div>
+            <div class="kpi-unit">download attempts</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Network Stability</div>
+            <div class="kpi-value" style="font-size:20px;">{{ summary.network_stability }}</div>
+            <span class="badge {% if summary.network_stability == 'Stable' %}badge-green{% else %}badge-red{% endif %}">
+                {{ "✓ low variance" if summary.network_stability == "Stable" else "⚡ high variance" }}
+            </span>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Speed Trend</div>
+            <div class="kpi-value" style="font-size:20px;">{{ summary.trend }}</div>
+            <span class="badge {% if summary.trend == 'Improving' %}badge-green{% else %}badge-red{% endif %}">
+                {{ "↑ getting faster" if summary.trend == "Improving" else "↓ getting slower" }}
+            </span>
+        </div>
+        <div class="kpi {% if summary.efficiency_score >= 80 %}accent{% elif summary.efficiency_score >= 50 %}blue{% else %}warn{% endif %}">
+            <div class="kpi-label">Efficiency Score</div>
+            <div class="kpi-value">{{ summary.efficiency_score }}<span style="font-size:14px;font-family:'DM Sans'">%</span></div>
+            <div class="kpi-unit">avg / peak ratio</div>
+        </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-row">
+        <div class="chart-card">
+            <div class="chart-title">Throughput over time — MB/s per hour</div>
+            <canvas id="timeChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Speed distribution</div>
+            <canvas id="distChart"></canvas>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+        <div class="table-header">
+            <h3>Download Log</h3>
+            <span class="row-count">{{ table | length }} entries</span>
+        </div>
+
+        {% if table %}
+        <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Speed</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table %}
+                <tr>
+                    <td class="url-cell" title="{{ row.url }}">{{ row.url }}</td>
+                    <td>
+                        <div class="speed-bar-wrap">
+                            <span class="speed-val">{{ row["speed_MBps"] }}</span>
+                            <div class="speed-bar-bg">
+                                <div class="speed-bar-fill" style="
+                                    width: {{ [[(row['speed_MBps'] / summary.max_speed_MBps * 100) if summary.max_speed_MBps else 0, 0]|max, 100]|min }}%;
+                                    background: {{ 'var(--fast)' if row['speed_MBps'] > 2 else ('var(--medium)' if row['speed_MBps'] > 1 else 'var(--slow)') }};
+                                "></div>
+                            </div>
+                            <span style="font-size:10px;color:var(--muted);">MB/s</span>
+                        </div>
+                    </td>
+                    <td class="time-cell">{{ row.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="icon">📭</div>
+            No download data available yet.<br>Run downloader.py to begin collecting data.
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- SLOWEST DOWNLOAD CALLOUT -->
+    {% if summary.slowest_download %}
+    <div style="margin-top:12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:12px;padding:16px 20px;display:flex;gap:20px;align-items:center;">
+        <span style="font-size:20px;">🐢</span>
+        <div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px;">Bottleneck Detected</div>
+            <div style="font-size:13px;">Slowest download: <strong style="font-family:'DM Mono',monospace;color:var(--accent2);">{{ summary.slowest_download.url }}</strong> at <strong style="color:var(--warn);">{{ summary.slowest_download.speed_MBps }} MB/s</strong></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <footer>NetPulse v2.0 — Python Network Analytics // automated 24-hr monitoring</footer>
+</div>
+
+<script>
+    const MAX_SPEED = {{ summary.max_speed_MBps or 1 }};
+
+    // ── TIME SERIES CHART ──
+    const timeLabels = [{% for k in summary.time_analysis %}"{{ k }}",{% endfor %}];
+    const timeData   = [{% for k, v in summary.time_analysis.items() %}{{ v }},{% endfor %}];
+    const avgLine    = timeData.map(() => {{ summary.average_speed_MBps or 0 }});
+
+    new Chart(document.getElementById("timeChart"), {
+        type: "line",
+        data: {
+            labels: timeLabels,
+            datasets: [
+                {
+                    label: "Speed (MB/s)",
+                    data: timeData,
+                    borderColor: "#00e5a0",
+                    backgroundColor: "rgba(0,229,160,0.07)",
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: "#00e5a0",
+                    tension: 0.35,
+                    fill: true
+                },
+                {
+                    label: "Average",
+                    data: avgLine,
+                    borderColor: "rgba(79,127,255,0.6)",
+                    borderDash: [5, 5],
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: "#6b7585", font: { family: "DM Mono", size: 11 } }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#6b7585", font: { family: "DM Mono", size: 10 } },
+                    grid:  { color: "rgba(255,255,255,0.04)" }
+                },
+                y: {
+                    ticks: { color: "#6b7585", font: { family: "DM Mono", size: 10 } },
+                    grid:  { color: "rgba(255,255,255,0.04)" }
+                }
+            }
+        }
+    });
+
+    // ── DISTRIBUTION DOUGHNUT ──
+    new Chart(document.getElementById("distChart"), {
+        type: "doughnut",
+        data: {
+            labels: ["Fast (>2 MB/s)", "Medium (1–2 MB/s)", "Slow (<1 MB/s)"],
+            datasets: [{
+                data: [
+                    {{ summary.speed_distribution.fast   if summary.speed_distribution else 0 }},
+                    {{ summary.speed_distribution.medium if summary.speed_distribution else 0 }},
+                    {{ summary.speed_distribution.slow   if summary.speed_distribution else 0 }}
+                ],
+                backgroundColor: ["#00e5a0", "#4f7fff", "#ff6b4a"],
+                borderWidth: 0,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "65%",
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: { color: "#6b7585", font: { family: "DM Mono", size: 11 }, padding: 14 }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
