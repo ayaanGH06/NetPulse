@@ -58,7 +58,14 @@ for entry in data:
     speeds.append(speed_MBps)
     total_data += size
 
-    time_key = datetime.fromtimestamp(start).strftime("%H:%M")
+    # Use run_number label if present (demo mode with short intervals),
+    # otherwise fall back to HH:MM (real 24-hr mode where runs are an hour apart).
+    run_number = entry.get("run_number")
+    if run_number is not None:
+        time_key = f"Run {run_number}"
+    else:
+        time_key = datetime.fromtimestamp(start).strftime("%H:%M")
+
     time_buckets.setdefault(time_key, []).append(speed_MBps)
 
     detailed.append({
@@ -86,17 +93,21 @@ for s in speeds:
 
 stability = "Unstable" if (max_speed - min_speed) > 2 else "Stable"
 
-trend = (
-    "Improving"  if len(speeds) >= 2 and speeds[-1] > speeds[0]
-    else "Degrading" if len(speeds) >= 2
-    else "Insufficient data"
-)
-
 # ── TIME ANALYSIS ─────────────────────────────────────────────────────────────
+# Must be built before trend, since trend uses hourly averages not raw speeds
 time_analysis = {
     hour: round(sum(vals) / len(vals), 2)
     for hour, vals in sorted(time_buckets.items())
 }
+
+# Trend: compare first vs last hourly average in chronological order.
+# Using raw speeds list was wrong — thread order is non-deterministic.
+hourly_values = list(time_analysis.values())
+trend = (
+    "Improving"         if len(hourly_values) >= 2 and hourly_values[-1] > hourly_values[0]
+    else "Degrading"    if len(hourly_values) >= 2
+    else "Insufficient data"
+)
 
 congestion_hours = [
     hour for hour, avg in time_analysis.items()

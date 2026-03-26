@@ -10,6 +10,7 @@ import logging
 import os
 import threading
 from typing import Any
+import argparse
 
 # ── LOGGING ──────────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -75,8 +76,14 @@ def download_url(url: str) -> None:
         data.append(entry)
 
 
+# ── ARGS ─────────────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser()
+parser.add_argument("--run", type=int, default=1, help="Run number (passed by scheduler)")
+args = parser.parse_args()
+RUN_NUMBER = args.run
+
 # ── RUN THREADS ───────────────────────────────────────────────────────────────
-log.info(f"Starting downloads for {len(URLS)} URLs")
+log.info(f"Starting downloads for {len(URLS)} URLs (run #{RUN_NUMBER})")
 threads = [threading.Thread(target=download_url, args=(url,)) for url in URLS]
 for t in threads: t.start()
 for t in threads: t.join()
@@ -92,6 +99,9 @@ if os.path.exists("data.json"):
 else:
     existing = []
 
+# Stamp run number onto every entry before saving
+for entry in data:
+    entry["run_number"] = RUN_NUMBER
 existing.extend(data)
 
 with open("data.json", "w") as f:

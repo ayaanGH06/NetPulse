@@ -44,7 +44,7 @@ for i in range(TOTAL_RUNS):
     log.info(f"{'─'*40}")
     log.info(f"{run_label} — starting at {datetime.now().strftime('%H:%M:%S')}")
 
-    result_dl = subprocess.run(["python", "downloader.py"], capture_output=True, text=True)
+    result_dl = subprocess.run(["python", "downloader.py", "--run", str(i + 1)], capture_output=True, text=True)
     if result_dl.returncode != 0:
         log.error(f"downloader.py failed:\n{result_dl.stderr}")
     else:
