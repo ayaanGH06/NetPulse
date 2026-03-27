@@ -7,13 +7,15 @@ import json
 import logging
 from urllib.parse import urlparse
 from datetime import datetime
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 # ── LOGGING ──────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("netpulse.log"),
+        logging.FileHandler("netpulse.log", encoding="utf-8"),
         logging.StreamHandler()
     ]
 )
@@ -152,7 +154,7 @@ summary = {
     "last_updated":        now,
 }
 
-with open("summary.json", "w") as f:
+with open("summary.json", "w", encoding="utf-8") as f:
     json.dump(summary, f, indent=4)
 
 log.info("summary.json saved.")
@@ -226,7 +228,7 @@ lines += [
     "=" * 56,
 ]
 
-with open("report.txt", "w") as f:
+with open("report.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(lines))
 
 log.info("Report written to report.txt")

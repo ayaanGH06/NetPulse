@@ -1,0 +1,141 @@
+{
+    "average_speed_MBps": 0.21,
+    "max_speed_MBps": 0.42,
+    "min_speed_MBps": 0.05,
+    "total_data_MB": 6.11,
+    "total_downloads": 20,
+    "failed_downloads": 5,
+    "network_stability": "Stable",
+    "trend": "Degrading",
+    "efficiency_score": 51.37,
+    "slowest_download": {
+        "url": "https://www.google.com",
+        "speed_MBps": 0.05,
+        "time": "Run 1"
+    },
+    "busiest_hour": "Run 3",
+    "slowest_hour": "Run 2",
+    "speed_distribution": {
+        "fast": 0,
+        "medium": 0,
+        "slow": 20
+    },
+    "domain_usage": {
+        "invalid-url-test-123.com": 5,
+        "www.bbc.com": 5,
+        "www.wikipedia.org": 5,
+        "www.google.com": 5,
+        "www.github.com": 5
+    },
+    "time_analysis": {
+        "Run 1": 0.22,
+        "Run 2": 0.2,
+        "Run 3": 0.25,
+        "Run 4": 0.2,
+        "Run 5": 0.2
+    },
+    "congestion_hours": [],
+    "detailed_downloads": [
+        {
+            "url": "https://www.bbc.com",
+            "speed_MBps": 0.41,
+            "time": "Run 1"
+        },
+        {
+            "url": "https://www.wikipedia.org",
+            "speed_MBps": 0.09,
+            "time": "Run 1"
+        },
+        {
+            "url": "https://www.google.com",
+            "speed_MBps": 0.05,
+            "time": "Run 1"
+        },
+        {
+            "url": "https://www.github.com",
+            "speed_MBps": 0.35,
+            "time": "Run 1"
+        },
+        {
+            "url": "https://www.wikipedia.org",
+            "speed_MBps": 0.1,
+            "time": "Run 2"
+        },
+        {
+            "url": "https://www.bbc.com",
+            "speed_MBps": 0.36,
+            "time": "Run 2"
+        },
+        {
+            "url": "https://www.google.com",
+            "speed_MBps": 0.05,
+            "time": "Run 2"
+        },
+        {
+            "url": "https://www.github.com",
+            "speed_MBps": 0.27,
+            "time": "Run 2"
+        },
+        {
+            "url": "https://www.wikipedia.org",
+            "speed_MBps": 0.11,
+            "time": "Run 3"
+        },
+        {
+            "url": "https://www.bbc.com",
+            "speed_MBps": 0.42,
+            "time": "Run 3"
+        },
+        {
+            "url": "https://www.github.com",
+            "speed_MBps": 0.4,
+            "time": "Run 3"
+        },
+        {
+            "url": "https://www.google.com",
+            "speed_MBps": 0.06,
+            "time": "Run 3"
+        },
+        {
+            "url": "https://www.wikipedia.org",
+            "speed_MBps": 0.12,
+            "time": "Run 4"
+        },
+        {
+            "url": "https://www.bbc.com",
+            "speed_MBps": 0.35,
+            "time": "Run 4"
+        },
+        {
+            "url": "https://www.google.com",
+            "speed_MBps": 0.06,
+            "time": "Run 4"
+        },
+        {
+            "url": "https://www.github.com",
+            "speed_MBps": 0.28,
+            "time": "Run 4"
+        },
+        {
+            "url": "https://www.wikipedia.org",
+            "speed_MBps": 0.1,
+            "time": "Run 5"
+        },
+        {
+            "url": "https://www.bbc.com",
+            "speed_MBps": 0.37,
+            "time": "Run 5"
+        },
+        {
+            "url": "https://www.google.com",
+            "speed_MBps": 0.05,
+            "time": "Run 5"
+        },
+        {
+            "url": "https://www.github.com",
+            "speed_MBps": 0.3,
+            "time": "Run 5"
+        }
+    ],
+    "last_updated": "2026-03-27 14:54:45"
+}

@@ -1,0 +1,346 @@
+2026-03-27 14:42:17,729 [INFO] NetPulse scheduler started — 5 runs, every 10s
+2026-03-27 14:42:17,748 [INFO] Run 1/5 — starting at 14:42:17
+2026-03-27 14:42:18,349 [INFO] Starting downloads for 5 URLs (run #1)
+2026-03-27 14:42:18,376 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:42:19,855 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.50s | HTTP 200
+2026-03-27 14:42:20,017 [INFO] OK   https://www.google.com | 81,423 bytes | 1.67s | HTTP 200
+2026-03-27 14:42:20,034 [INFO] OK   https://www.bbc.com | 503,293 bytes | 1.68s | HTTP 200
+2026-03-27 14:42:20,881 [INFO] OK   https://www.github.com | 566,002 bytes | 2.53s | HTTP 200
+2026-03-27 14:42:20,887 [INFO] Done — 4/5 succeeded. data.json updated (5 total records).
+2026-03-27 14:42:20,933 [INFO] downloader.py completed successfully
+2026-03-27 14:42:21,179 [INFO] Loaded 5 records from data.json
+2026-03-27 14:42:21,180 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:21,181 [INFO] Processed 4 successful / 1 failed downloads
+2026-03-27 14:42:21,181 [INFO] Busiest hour (peak speed): Run 1 @ 0.16 MB/s
+2026-03-27 14:42:21,181 [INFO] Slowest hour: Run 1 @ 0.16 MB/s
+2026-03-27 14:42:21,183 [INFO] summary.json saved.
+2026-03-27 14:42:21,218 [ERROR] analyzer.py failed:
+2026-03-27 14:42:21,179 [INFO] Loaded 5 records from data.json
+2026-03-27 14:42:21,180 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:21,181 [INFO] Processed 4 successful / 1 failed downloads
+2026-03-27 14:42:21,181 [INFO] Busiest hour (peak speed): Run 1 @ 0.16 MB/s
+2026-03-27 14:42:21,181 [INFO] Slowest hour: Run 1 @ 0.16 MB/s
+2026-03-27 14:42:21,183 [INFO] summary.json saved.
+Traceback (most recent call last):
+  File "C:\Users\surya\NetPulse\analyzer.py", line 230, in <module>
+    f.write("\n".join(lines))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2588' in position 521: character maps to <undefined>
+
+2026-03-27 14:42:21,218 [INFO] Sleeping 10s — next run at 14:42:31
+2026-03-27 14:42:31,224 [INFO] Run 2/5 — starting at 14:42:31
+2026-03-27 14:42:31,661 [INFO] Starting downloads for 5 URLs (run #2)
+2026-03-27 14:42:31,684 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:42:33,134 [INFO] OK   https://www.bbc.com | 503,294 bytes | 1.47s | HTTP 200
+2026-03-27 14:42:33,138 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.48s | HTTP 200
+2026-03-27 14:42:33,277 [INFO] OK   https://www.google.com | 81,506 bytes | 1.61s | HTTP 200
+2026-03-27 14:42:34,091 [INFO] OK   https://www.github.com | 566,002 bytes | 2.43s | HTTP 200
+2026-03-27 14:42:34,097 [INFO] Done — 4/5 succeeded. data.json updated (10 total records).
+2026-03-27 14:42:34,137 [INFO] downloader.py completed successfully
+2026-03-27 14:42:34,275 [INFO] Loaded 10 records from data.json
+2026-03-27 14:42:34,276 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:34,276 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:34,276 [INFO] Processed 8 successful / 2 failed downloads
+2026-03-27 14:42:34,277 [INFO] Busiest hour (peak speed): Run 2 @ 0.17 MB/s
+2026-03-27 14:42:34,277 [INFO] Slowest hour: Run 1 @ 0.16 MB/s
+2026-03-27 14:42:34,278 [INFO] summary.json saved.
+2026-03-27 14:42:34,309 [ERROR] analyzer.py failed:
+2026-03-27 14:42:34,275 [INFO] Loaded 10 records from data.json
+2026-03-27 14:42:34,276 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:34,276 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:34,276 [INFO] Processed 8 successful / 2 failed downloads
+2026-03-27 14:42:34,277 [INFO] Busiest hour (peak speed): Run 2 @ 0.17 MB/s
+2026-03-27 14:42:34,277 [INFO] Slowest hour: Run 1 @ 0.16 MB/s
+2026-03-27 14:42:34,278 [INFO] summary.json saved.
+Traceback (most recent call last):
+  File "C:\Users\surya\NetPulse\analyzer.py", line 230, in <module>
+    f.write("\n".join(lines))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2588' in position 513: character maps to <undefined>
+
+2026-03-27 14:42:34,310 [INFO] Sleeping 10s — next run at 14:42:44
+2026-03-27 14:42:44,316 [INFO] Run 3/5 — starting at 14:42:44
+2026-03-27 14:42:44,661 [INFO] Starting downloads for 5 URLs (run #3)
+2026-03-27 14:42:45,047 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:42:46,787 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 2.12s | HTTP 200
+2026-03-27 14:42:47,018 [INFO] OK   https://www.google.com | 81,511 bytes | 2.36s | HTTP 200
+2026-03-27 14:42:47,070 [INFO] OK   https://www.bbc.com | 503,293 bytes | 2.41s | HTTP 200
+2026-03-27 14:42:47,811 [INFO] OK   https://www.github.com | 566,002 bytes | 3.15s | HTTP 200
+2026-03-27 14:42:47,817 [INFO] Done — 4/5 succeeded. data.json updated (15 total records).
+2026-03-27 14:42:47,852 [INFO] downloader.py completed successfully
+2026-03-27 14:42:48,013 [INFO] Loaded 15 records from data.json
+2026-03-27 14:42:48,013 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,014 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,015 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,015 [INFO] Processed 12 successful / 3 failed downloads
+2026-03-27 14:42:48,016 [INFO] Busiest hour (peak speed): Run 2 @ 0.17 MB/s
+2026-03-27 14:42:48,016 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:42:48,018 [INFO] summary.json saved.
+2026-03-27 14:42:48,042 [ERROR] analyzer.py failed:
+2026-03-27 14:42:48,013 [INFO] Loaded 15 records from data.json
+2026-03-27 14:42:48,013 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,014 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,015 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:42:48,015 [INFO] Processed 12 successful / 3 failed downloads
+2026-03-27 14:42:48,016 [INFO] Busiest hour (peak speed): Run 2 @ 0.17 MB/s
+2026-03-27 14:42:48,016 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:42:48,018 [INFO] summary.json saved.
+Traceback (most recent call last):
+  File "C:\Users\surya\NetPulse\analyzer.py", line 230, in <module>
+    f.write("\n".join(lines))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2588' in position 513: character maps to <undefined>
+
+2026-03-27 14:42:48,043 [INFO] Sleeping 10s — next run at 14:42:58
+2026-03-27 14:42:58,050 [INFO] Run 4/5 — starting at 14:42:58
+2026-03-27 14:42:58,399 [INFO] Starting downloads for 5 URLs (run #4)
+2026-03-27 14:42:58,418 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:42:59,268 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 0.87s | HTTP 200
+2026-03-27 14:42:59,755 [INFO] OK   https://www.bbc.com | 503,293 bytes | 1.35s | HTTP 200
+2026-03-27 14:42:59,771 [INFO] OK   https://www.google.com | 81,452 bytes | 1.37s | HTTP 200
+2026-03-27 14:43:00,403 [INFO] OK   https://www.github.com | 566,002 bytes | 2.00s | HTTP 200
+2026-03-27 14:43:00,410 [INFO] Done — 4/5 succeeded. data.json updated (20 total records).
+2026-03-27 14:43:00,445 [INFO] downloader.py completed successfully
+2026-03-27 14:43:00,601 [INFO] Loaded 20 records from data.json
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [INFO] Processed 16 successful / 4 failed downloads
+2026-03-27 14:43:00,603 [INFO] Busiest hour (peak speed): Run 4 @ 0.21 MB/s
+2026-03-27 14:43:00,603 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:43:00,605 [INFO] summary.json saved.
+2026-03-27 14:43:00,630 [ERROR] analyzer.py failed:
+2026-03-27 14:43:00,601 [INFO] Loaded 20 records from data.json
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:00,602 [INFO] Processed 16 successful / 4 failed downloads
+2026-03-27 14:43:00,603 [INFO] Busiest hour (peak speed): Run 4 @ 0.21 MB/s
+2026-03-27 14:43:00,603 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:43:00,605 [INFO] summary.json saved.
+Traceback (most recent call last):
+  File "C:\Users\surya\NetPulse\analyzer.py", line 230, in <module>
+    f.write("\n".join(lines))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2588' in position 514: character maps to <undefined>
+
+2026-03-27 14:43:00,630 [INFO] Sleeping 10s — next run at 14:43:10
+2026-03-27 14:43:10,635 [INFO] Run 5/5 — starting at 14:43:10
+2026-03-27 14:43:10,971 [INFO] Starting downloads for 5 URLs (run #5)
+2026-03-27 14:43:10,989 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:43:12,082 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.11s | HTTP 200
+2026-03-27 14:43:12,366 [INFO] OK   https://www.google.com | 81,581 bytes | 1.39s | HTTP 200
+2026-03-27 14:43:12,370 [INFO] OK   https://www.bbc.com | 503,293 bytes | 1.40s | HTTP 200
+2026-03-27 14:43:13,112 [INFO] OK   https://www.github.com | 566,002 bytes | 2.14s | HTTP 200
+2026-03-27 14:43:13,118 [INFO] Done — 4/5 succeeded. data.json updated (25 total records).
+2026-03-27 14:43:13,153 [INFO] downloader.py completed successfully
+2026-03-27 14:43:13,301 [INFO] Loaded 25 records from data.json
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [INFO] Processed 20 successful / 5 failed downloads
+2026-03-27 14:43:13,302 [INFO] Busiest hour (peak speed): Run 4 @ 0.21 MB/s
+2026-03-27 14:43:13,303 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:43:13,304 [INFO] summary.json saved.
+2026-03-27 14:43:13,326 [ERROR] analyzer.py failed:
+2026-03-27 14:43:13,301 [INFO] Loaded 25 records from data.json
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:43:13,302 [INFO] Processed 20 successful / 5 failed downloads
+2026-03-27 14:43:13,302 [INFO] Busiest hour (peak speed): Run 4 @ 0.21 MB/s
+2026-03-27 14:43:13,303 [INFO] Slowest hour: Run 3 @ 0.12 MB/s
+2026-03-27 14:43:13,304 [INFO] summary.json saved.
+Traceback (most recent call last):
+  File "C:\Users\surya\NetPulse\analyzer.py", line 230, in <module>
+    f.write("\n".join(lines))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2588' in position 514: character maps to <undefined>
+
+2026-03-27 14:49:43,856 [INFO] data.json cleared — starting fresh 24-hr session.
+2026-03-27 14:49:43,856 [INFO] NetPulse scheduler started — 5 runs, every 10s
+2026-03-27 14:49:43,880 [INFO] Run 1/5 — starting at 14:49:43
+2026-03-27 14:49:44,580 [INFO] Starting downloads for 5 URLs (run #1)
+2026-03-27 14:49:44,610 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:49:46,003 [INFO] OK   https://www.bbc.com | 503,311 bytes | 1.42s | HTTP 200
+2026-03-27 14:49:46,042 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.46s | HTTP 200
+2026-03-27 14:49:46,547 [INFO] OK   https://www.google.com | 81,577 bytes | 1.97s | HTTP 200
+2026-03-27 14:49:46,777 [INFO] OK   https://www.github.com | 566,002 bytes | 2.19s | HTTP 200
+2026-03-27 14:49:46,784 [INFO] Done — 4/5 succeeded. data.json updated (5 total records).
+2026-03-27 14:49:46,828 [INFO] downloader.py completed successfully
+2026-03-27 14:49:47,041 [INFO] Loaded 5 records from data.json
+2026-03-27 14:49:47,042 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:49:47,042 [INFO] Processed 4 successful / 1 failed downloads
+2026-03-27 14:49:47,042 [INFO] Busiest hour (peak speed): Run 1 @ 0.18 MB/s
+2026-03-27 14:49:47,042 [INFO] Slowest hour: Run 1 @ 0.18 MB/s
+2026-03-27 14:49:47,044 [INFO] summary.json saved.
+2026-03-27 14:49:47,046 [INFO] Report written to report.txt
+2026-03-27 14:49:47,059 [INFO] analyzer.py completed successfully
+2026-03-27 14:49:47,059 [INFO] Sleeping 10s — next run at 14:49:57
+2026-03-27 14:49:57,071 [INFO] Run 2/5 — starting at 14:49:57
+2026-03-27 14:49:57,427 [INFO] Starting downloads for 5 URLs (run #2)
+2026-03-27 14:49:57,450 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:49:58,376 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 0.95s | HTTP 200
+2026-03-27 14:49:58,520 [INFO] OK   https://www.bbc.com | 503,311 bytes | 1.09s | HTTP 200
+2026-03-27 14:49:58,836 [INFO] OK   https://www.google.com | 81,505 bytes | 1.41s | HTTP 200
+2026-03-27 14:49:58,879 [INFO] OK   https://www.github.com | 566,002 bytes | 1.45s | HTTP 200
+2026-03-27 14:49:58,886 [INFO] Done — 4/5 succeeded. data.json updated (10 total records).
+2026-03-27 14:49:58,924 [INFO] downloader.py completed successfully
+2026-03-27 14:49:59,067 [INFO] Loaded 10 records from data.json
+2026-03-27 14:49:59,068 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:49:59,068 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:49:59,068 [INFO] Processed 8 successful / 2 failed downloads
+2026-03-27 14:49:59,068 [INFO] Busiest hour (peak speed): Run 2 @ 0.25 MB/s
+2026-03-27 14:49:59,068 [INFO] Slowest hour: Run 1 @ 0.18 MB/s
+2026-03-27 14:49:59,069 [INFO] summary.json saved.
+2026-03-27 14:49:59,070 [INFO] Report written to report.txt
+2026-03-27 14:49:59,082 [INFO] analyzer.py completed successfully
+2026-03-27 14:49:59,082 [INFO] Sleeping 10s — next run at 14:50:09
+2026-03-27 14:50:10,389 [INFO] data.json cleared — starting fresh 24-hr session.
+2026-03-27 14:50:10,390 [INFO] NetPulse scheduler started — 5 runs, every 10s
+2026-03-27 14:50:10,399 [INFO] Run 1/5 — starting at 14:50:10
+2026-03-27 14:50:10,735 [INFO] Starting downloads for 5 URLs (run #1)
+2026-03-27 14:50:10,757 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:50:11,976 [INFO] OK   https://www.bbc.com | 503,311 bytes | 1.24s | HTTP 200
+2026-03-27 14:50:12,035 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.30s | HTTP 200
+2026-03-27 14:50:12,348 [INFO] OK   https://www.google.com | 81,585 bytes | 1.61s | HTTP 200
+2026-03-27 14:50:12,741 [INFO] OK   https://www.github.com | 566,002 bytes | 2.00s | HTTP 200
+2026-03-27 14:50:12,746 [INFO] Done — 4/5 succeeded. data.json updated (5 total records).
+2026-03-27 14:50:12,778 [INFO] downloader.py completed successfully
+2026-03-27 14:50:12,915 [INFO] Loaded 5 records from data.json
+2026-03-27 14:50:12,915 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:50:12,916 [INFO] Processed 4 successful / 1 failed downloads
+2026-03-27 14:50:12,916 [INFO] Busiest hour (peak speed): Run 1 @ 0.2 MB/s
+2026-03-27 14:50:12,916 [INFO] Slowest hour: Run 1 @ 0.2 MB/s
+2026-03-27 14:50:12,917 [INFO] summary.json saved.
+2026-03-27 14:50:12,919 [INFO] Report written to report.txt
+2026-03-27 14:50:12,931 [INFO] analyzer.py completed successfully
+2026-03-27 14:50:12,931 [INFO] Sleeping 10s — next run at 14:50:22
+2026-03-27 14:53:54,113 [INFO] data.json cleared â€” starting fresh 24-hr session.
+2026-03-27 14:53:54,113 [INFO] NetPulse scheduler started â€” 5 runs, every 10s
+2026-03-27 14:53:54,114 [INFO] ----------------------------------------
+2026-03-27 14:53:54,114 [INFO] Run 1/5 â€” starting at 14:53:54
+2026-03-27 14:53:54,544 [INFO] Starting downloads for 5 URLs (run #1)
+2026-03-27 14:53:54,602 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:53:55,707 [INFO] OK   https://www.bbc.com | 503,336 bytes | 1.16s | HTTP 200
+2026-03-27 14:53:55,974 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.43s | HTTP 200
+2026-03-27 14:53:56,026 [INFO] OK   https://www.google.com | 81,587 bytes | 1.48s | HTTP 200
+2026-03-27 14:53:56,106 [INFO] OK   https://www.github.com | 565,996 bytes | 1.56s | HTTP 200
+2026-03-27 14:53:56,111 [INFO] Done — 4/5 succeeded. data.json updated (5 total records).
+2026-03-27 14:53:56,147 [INFO] downloader.py completed successfully
+2026-03-27 14:53:56,312 [INFO] Loaded 5 records from data.json
+2026-03-27 14:53:56,312 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:53:56,312 [INFO] Processed 4 successful / 1 failed downloads
+2026-03-27 14:53:56,313 [INFO] Busiest hour (peak speed): Run 1 @ 0.22 MB/s
+2026-03-27 14:53:56,313 [INFO] Slowest hour: Run 1 @ 0.22 MB/s
+2026-03-27 14:53:56,314 [INFO] summary.json saved.
+2026-03-27 14:53:56,316 [INFO] Report written to report.txt
+2026-03-27 14:53:56,329 [INFO] analyzer.py completed successfully
+2026-03-27 14:53:56,330 [INFO] Sleeping 10s â€” next run at 14:54:06
+2026-03-27 14:54:06,332 [INFO] ----------------------------------------
+2026-03-27 14:54:06,333 [INFO] Run 2/5 â€” starting at 14:54:06
+2026-03-27 14:54:06,673 [INFO] Starting downloads for 5 URLs (run #2)
+2026-03-27 14:54:06,833 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:54:07,909 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.23s | HTTP 200
+2026-03-27 14:54:08,003 [INFO] OK   https://www.bbc.com | 503,336 bytes | 1.33s | HTTP 200
+2026-03-27 14:54:08,159 [INFO] OK   https://www.google.com | 81,638 bytes | 1.49s | HTTP 200
+2026-03-27 14:54:08,703 [INFO] OK   https://www.github.com | 566,002 bytes | 2.03s | HTTP 200
+2026-03-27 14:54:08,710 [INFO] Done — 4/5 succeeded. data.json updated (10 total records).
+2026-03-27 14:54:08,742 [INFO] downloader.py completed successfully
+2026-03-27 14:54:08,877 [INFO] Loaded 10 records from data.json
+2026-03-27 14:54:08,878 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:08,878 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:08,878 [INFO] Processed 8 successful / 2 failed downloads
+2026-03-27 14:54:08,878 [INFO] Busiest hour (peak speed): Run 1 @ 0.22 MB/s
+2026-03-27 14:54:08,878 [INFO] Slowest hour: Run 2 @ 0.2 MB/s
+2026-03-27 14:54:08,880 [INFO] summary.json saved.
+2026-03-27 14:54:08,881 [INFO] Report written to report.txt
+2026-03-27 14:54:08,893 [INFO] analyzer.py completed successfully
+2026-03-27 14:54:08,894 [INFO] Sleeping 10s â€” next run at 14:54:18
+2026-03-27 14:54:18,896 [INFO] ----------------------------------------
+2026-03-27 14:54:18,897 [INFO] Run 3/5 â€” starting at 14:54:18
+2026-03-27 14:54:19,229 [INFO] Starting downloads for 5 URLs (run #3)
+2026-03-27 14:54:19,249 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:54:20,350 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.12s | HTTP 200
+2026-03-27 14:54:20,380 [INFO] OK   https://www.bbc.com | 503,336 bytes | 1.15s | HTTP 200
+2026-03-27 14:54:20,582 [INFO] OK   https://www.github.com | 566,006 bytes | 1.35s | HTTP 200
+2026-03-27 14:54:20,595 [INFO] OK   https://www.google.com | 81,525 bytes | 1.37s | HTTP 200
+2026-03-27 14:54:20,601 [INFO] Done — 4/5 succeeded. data.json updated (15 total records).
+2026-03-27 14:54:20,635 [INFO] downloader.py completed successfully
+2026-03-27 14:54:20,788 [INFO] Loaded 15 records from data.json
+2026-03-27 14:54:20,788 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:20,789 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:20,789 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:20,789 [INFO] Processed 12 successful / 3 failed downloads
+2026-03-27 14:54:20,789 [INFO] Busiest hour (peak speed): Run 3 @ 0.25 MB/s
+2026-03-27 14:54:20,789 [INFO] Slowest hour: Run 2 @ 0.2 MB/s
+2026-03-27 14:54:20,790 [INFO] summary.json saved.
+2026-03-27 14:54:20,791 [INFO] Report written to report.txt
+2026-03-27 14:54:20,803 [INFO] analyzer.py completed successfully
+2026-03-27 14:54:20,804 [INFO] Sleeping 10s â€” next run at 14:54:30
+2026-03-27 14:54:30,804 [INFO] ----------------------------------------
+2026-03-27 14:54:30,805 [INFO] Run 4/5 â€” starting at 14:54:30
+2026-03-27 14:54:31,144 [INFO] Starting downloads for 5 URLs (run #4)
+2026-03-27 14:54:31,167 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:54:32,222 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.08s | HTTP 200
+2026-03-27 14:54:32,499 [INFO] OK   https://www.bbc.com | 503,336 bytes | 1.35s | HTTP 200
+2026-03-27 14:54:32,507 [INFO] OK   https://www.google.com | 81,477 bytes | 1.36s | HTTP 200
+2026-03-27 14:54:33,047 [INFO] OK   https://www.github.com | 566,002 bytes | 1.90s | HTTP 200
+2026-03-27 14:54:33,056 [INFO] Done — 4/5 succeeded. data.json updated (20 total records).
+2026-03-27 14:54:33,094 [INFO] downloader.py completed successfully
+2026-03-27 14:54:33,257 [INFO] Loaded 20 records from data.json
+2026-03-27 14:54:33,258 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:33,258 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:33,258 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:33,258 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:33,258 [INFO] Processed 16 successful / 4 failed downloads
+2026-03-27 14:54:33,258 [INFO] Busiest hour (peak speed): Run 3 @ 0.25 MB/s
+2026-03-27 14:54:33,258 [INFO] Slowest hour: Run 2 @ 0.2 MB/s
+2026-03-27 14:54:33,259 [INFO] summary.json saved.
+2026-03-27 14:54:33,260 [INFO] Report written to report.txt
+2026-03-27 14:54:33,273 [INFO] analyzer.py completed successfully
+2026-03-27 14:54:33,273 [INFO] Sleeping 10s â€” next run at 14:54:43
+2026-03-27 14:54:43,273 [INFO] ----------------------------------------
+2026-03-27 14:54:43,274 [INFO] Run 5/5 â€” starting at 14:54:43
+2026-03-27 14:54:43,731 [INFO] Starting downloads for 5 URLs (run #5)
+2026-03-27 14:54:43,757 [WARNING] CONN ERR https://invalid-url-test-123.com
+2026-03-27 14:54:44,923 [INFO] OK   https://www.wikipedia.org | 129,907 bytes | 1.19s | HTTP 200
+2026-03-27 14:54:45,045 [INFO] OK   https://www.bbc.com | 503,336 bytes | 1.31s | HTTP 200
+2026-03-27 14:54:45,359 [INFO] OK   https://www.google.com | 81,458 bytes | 1.63s | HTTP 200
+2026-03-27 14:54:45,540 [INFO] OK   https://www.github.com | 565,998 bytes | 1.81s | HTTP 200
+2026-03-27 14:54:45,549 [INFO] Done — 4/5 succeeded. data.json updated (25 total records).
+2026-03-27 14:54:45,585 [INFO] downloader.py completed successfully
+2026-03-27 14:54:45,745 [INFO] Loaded 25 records from data.json
+2026-03-27 14:54:45,746 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:45,746 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:45,746 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:45,746 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:45,746 [WARNING] Failed download in record: https://invalid-url-test-123.com
+2026-03-27 14:54:45,746 [INFO] Processed 20 successful / 5 failed downloads
+2026-03-27 14:54:45,746 [INFO] Busiest hour (peak speed): Run 3 @ 0.25 MB/s
+2026-03-27 14:54:45,747 [INFO] Slowest hour: Run 2 @ 0.2 MB/s
+2026-03-27 14:54:45,748 [INFO] summary.json saved.
+2026-03-27 14:54:45,749 [INFO] Report written to report.txt
+2026-03-27 14:54:45,760 [INFO] analyzer.py completed successfully
+2026-03-27 14:54:45,760 [INFO] [OK] 24-hour monitoring complete.

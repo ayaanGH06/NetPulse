@@ -1,0 +1,44 @@
+========================================================
+  NETPULSE — NETWORK ANALYTICS REPORT
+  Generated : 2026-03-27 14:54:45
+========================================================
+
+OVERVIEW
+  Average speed    : 0.21 MB/s
+  Peak speed       : 0.42 MB/s
+  Minimum speed    : 0.05 MB/s
+  Total data       : 6.11 MB
+  Successful DLs   : 20
+  Failed DLs       : 5
+  Efficiency score : 51.37%
+
+NETWORK HEALTH
+  Stability        : Stable
+  Speed trend      : Degrading
+
+HOURLY BREAKDOWN
+  Run 1  ██                              0.22 MB/s
+  Run 2  ██                              0.20 MB/s << SLOWEST
+  Run 3  ██                              0.25 MB/s << PEAK
+  Run 4  ██                              0.20 MB/s
+  Run 5  ██                              0.20 MB/s
+
+BUSIEST HOUR ANALYSIS
+  Busiest hour     : Run 3 (0.25 MB/s)
+  This hour recorded the highest average throughput.
+  Possible causes  : low concurrent network usage, optimal
+  server response, or favourable routing conditions.
+
+CONGESTION ANALYSIS
+  No congestion detected during this session.
+
+BOTTLENECK
+  Slowest download : https://www.google.com
+  Speed            : 0.05 MB/s at Run 1
+
+SPEED DISTRIBUTION
+  Fast   (>2 MB/s) : 0 downloads
+  Medium (1-2 MB/s): 0 downloads
+  Slow   (<1 MB/s) : 20 downloads
+
+========================================================

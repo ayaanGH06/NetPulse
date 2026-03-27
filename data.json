@@ -1,0 +1,252 @@
+[
+  {
+    "url": "https://invalid-url-test-123.com",
+    "start_time": 1774603434.547423,
+    "end_time": 1774603434.6023538,
+    "timestamp": "14:53:54",
+    "size": 0,
+    "status": "failed",
+    "error": "connection_error",
+    "run_number": 1
+  },
+  {
+    "url": "https://www.bbc.com",
+    "start_time": 1774603434.546968,
+    "end_time": 1774603435.7073383,
+    "timestamp": "14:53:55",
+    "size": 503336,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 1
+  },
+  {
+    "url": "https://www.wikipedia.org",
+    "start_time": 1774603434.5458016,
+    "end_time": 1774603435.9744604,
+    "timestamp": "14:53:55",
+    "size": 129907,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 1
+  },
+  {
+    "url": "https://www.google.com",
+    "start_time": 1774603434.5453513,
+    "end_time": 1774603436.0267806,
+    "timestamp": "14:53:56",
+    "size": 81587,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 1
+  },
+  {
+    "url": "https://www.github.com",
+    "start_time": 1774603434.546393,
+    "end_time": 1774603436.106751,
+    "timestamp": "14:53:56",
+    "size": 565996,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 1
+  },
+  {
+    "url": "https://invalid-url-test-123.com",
+    "start_time": 1774603446.6760585,
+    "end_time": 1774603446.8338928,
+    "timestamp": "14:54:06",
+    "size": 0,
+    "status": "failed",
+    "error": "connection_error",
+    "run_number": 2
+  },
+  {
+    "url": "https://www.wikipedia.org",
+    "start_time": 1774603446.6744018,
+    "end_time": 1774603447.9088979,
+    "timestamp": "14:54:07",
+    "size": 129907,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 2
+  },
+  {
+    "url": "https://www.bbc.com",
+    "start_time": 1774603446.6755092,
+    "end_time": 1774603448.0036411,
+    "timestamp": "14:54:08",
+    "size": 503336,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 2
+  },
+  {
+    "url": "https://www.google.com",
+    "start_time": 1774603446.673998,
+    "end_time": 1774603448.1592486,
+    "timestamp": "14:54:08",
+    "size": 81638,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 2
+  },
+  {
+    "url": "https://www.github.com",
+    "start_time": 1774603446.674912,
+    "end_time": 1774603448.7037873,
+    "timestamp": "14:54:08",
+    "size": 566002,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 2
+  },
+  {
+    "url": "https://invalid-url-test-123.com",
+    "start_time": 1774603459.2314386,
+    "end_time": 1774603459.2499938,
+    "timestamp": "14:54:19",
+    "size": 0,
+    "status": "failed",
+    "error": "connection_error",
+    "run_number": 3
+  },
+  {
+    "url": "https://www.wikipedia.org",
+    "start_time": 1774603459.2303019,
+    "end_time": 1774603460.3500676,
+    "timestamp": "14:54:20",
+    "size": 129907,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 3
+  },
+  {
+    "url": "https://www.bbc.com",
+    "start_time": 1774603459.2308621,
+    "end_time": 1774603460.3802207,
+    "timestamp": "14:54:20",
+    "size": 503336,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 3
+  },
+  {
+    "url": "https://www.github.com",
+    "start_time": 1774603459.2306,
+    "end_time": 1774603460.5824983,
+    "timestamp": "14:54:20",
+    "size": 566006,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 3
+  },
+  {
+    "url": "https://www.google.com",
+    "start_time": 1774603459.229884,
+    "end_time": 1774603460.5949688,
+    "timestamp": "14:54:20",
+    "size": 81525,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 3
+  },
+  {
+    "url": "https://invalid-url-test-123.com",
+    "start_time": 1774603471.1470277,
+    "end_time": 1774603471.167391,
+    "timestamp": "14:54:31",
+    "size": 0,
+    "status": "failed",
+    "error": "connection_error",
+    "run_number": 4
+  },
+  {
+    "url": "https://www.wikipedia.org",
+    "start_time": 1774603471.145813,
+    "end_time": 1774603472.222205,
+    "timestamp": "14:54:32",
+    "size": 129907,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 4
+  },
+  {
+    "url": "https://www.bbc.com",
+    "start_time": 1774603471.146655,
+    "end_time": 1774603472.4989583,
+    "timestamp": "14:54:32",
+    "size": 503336,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 4
+  },
+  {
+    "url": "https://www.google.com",
+    "start_time": 1774603471.1452224,
+    "end_time": 1774603472.507637,
+    "timestamp": "14:54:32",
+    "size": 81477,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 4
+  },
+  {
+    "url": "https://www.github.com",
+    "start_time": 1774603471.146192,
+    "end_time": 1774603473.047893,
+    "timestamp": "14:54:33",
+    "size": 566002,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 4
+  },
+  {
+    "url": "https://invalid-url-test-123.com",
+    "start_time": 1774603483.7342725,
+    "end_time": 1774603483.7576668,
+    "timestamp": "14:54:43",
+    "size": 0,
+    "status": "failed",
+    "error": "connection_error",
+    "run_number": 5
+  },
+  {
+    "url": "https://www.wikipedia.org",
+    "start_time": 1774603483.732661,
+    "end_time": 1774603484.9235435,
+    "timestamp": "14:54:44",
+    "size": 129907,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 5
+  },
+  {
+    "url": "https://www.bbc.com",
+    "start_time": 1774603483.7338095,
+    "end_time": 1774603485.0451117,
+    "timestamp": "14:54:45",
+    "size": 503336,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 5
+  },
+  {
+    "url": "https://www.google.com",
+    "start_time": 1774603483.7318587,
+    "end_time": 1774603485.3590374,
+    "timestamp": "14:54:45",
+    "size": 81458,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 5
+  },
+  {
+    "url": "https://www.github.com",
+    "start_time": 1774603483.7333794,
+    "end_time": 1774603485.5404787,
+    "timestamp": "14:54:45",
+    "size": 565998,
+    "status": "success",
+    "http_code": 200,
+    "run_number": 5
+  }
+]

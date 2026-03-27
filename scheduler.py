@@ -7,13 +7,15 @@ import time
 import subprocess
 import logging
 from datetime import datetime
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 # ── LOGGING ──────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("netpulse.log"),
+        logging.FileHandler("netpulse.log",  encoding="utf-8"),
         logging.StreamHandler()
     ]
 )
@@ -41,7 +43,7 @@ log.info(f"NetPulse scheduler started — {TOTAL_RUNS} runs, every {INTERVAL}s")
 
 for i in range(TOTAL_RUNS):
     run_label = f"Run {i+1}/{TOTAL_RUNS}"
-    log.info(f"{'─'*40}")
+    log.info("-" * 40)
     log.info(f"{run_label} — starting at {datetime.now().strftime('%H:%M:%S')}")
 
     result_dl = subprocess.run(["python", "downloader.py", "--run", str(i + 1)], capture_output=True, text=True)
@@ -61,4 +63,4 @@ for i in range(TOTAL_RUNS):
         log.info(f"Sleeping {INTERVAL}s — next run at {next_run}")
         time.sleep(INTERVAL)
 
-log.info("✓ 24-hour monitoring complete.")
+log.info("[OK] 24-hour monitoring complete.")
