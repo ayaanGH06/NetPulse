@@ -419,7 +419,7 @@
     </div>
 
     {% if summary.slowest_download %}
-    <div style="margin-top:12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:12px;padding:16px 20px;display:flex;gap:20px;align-items:center;">
+    <div id="bottleneck" style="margin-top:12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:12px;padding:16px 20px;display:flex;gap:20px;align-items:center;">
         <span style="font-size:20px;">🐢</span>
         <div>
             <div style="font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px;">Bottleneck Detected</div>
@@ -583,6 +583,13 @@
             alertEl.style.display = "flex";
         } else {
             alertEl.style.display = "none";
+        }
+        
+        const bottleneck = document.getElementById("bottleneck");
+        if (bottleneck && data.slowest_download) {
+            bottleneck.style.display = "flex";
+            bottleneck.querySelector("div div:last-child").innerHTML =
+                `Slowest download: <strong style="font-family:'DM Mono',monospace;color:var(--accent2);">${data.slowest_download.url}</strong> at <strong style="color:var(--warn);">${data.slowest_download.speed_MBps} MB/s</strong>`;
         }
 
         // ── Download log table ──
