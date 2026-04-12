@@ -455,7 +455,7 @@
     const timeData   = [{% for k, v in summary.time_analysis.items() %}{{ v }},{% endfor %}];
     const avgLine    = timeData.map(() => {{ summary.average_speed_MBps or 0 }});
 
-    new Chart(document.getElementById("timeChart"), {
+    window.timeChartInstance = new Chart(document.getElementById("timeChart"), {
         type: "line",
         data: {
             labels: timeLabels,
@@ -503,7 +503,7 @@
     });
 
     // ── DISTRIBUTION DOUGHNUT ──
-    new Chart(document.getElementById("distChart"), {
+    window.distChartInstance = new Chart(document.getElementById("distChart"), {
         type: "doughnut",
         data: {
             labels: ["Fast (>2 MB/s)", "Medium (1–2 MB/s)", "Slow (<1 MB/s)"],
@@ -532,23 +532,64 @@
 </script>
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script>
-    const socket = io();
+    const socket = io("http://127.0.0.1:5001");
 
     socket.on("connect", () => {
         console.log("[NetPulse] Socket connected");
     });
 
-    socket.on("summary_update", (data) => {
-        // Update KPI values without a page reload
-        document.querySelector(".kpi.accent .kpi-value").textContent = data.average_speed_MBps;
-        document.querySelector(".kpi.blue .kpi-value").textContent   = data.max_speed_MBps;
+    socket.on("disconnect", () => {
+        console.log("[NetPulse] Socket disconnected");
+    });
 
-        // Flash the live dot green briefly to signal an update
+    socket.on("summary_update", (data) => {
+        console.log("[NetPulse] Dashboard updated", data.last_updated);
+
+        // Flash the dot
         const dot = document.querySelector(".live-dot");
         dot.style.background = "#fff";
         setTimeout(() => dot.style.background = "var(--accent)", 400);
 
-        console.log("[NetPulse] Dashboard updated", data.last_updated);
+        // Update timestamp
+        const ts = document.querySelector(".timestamp strong");
+        if (ts) ts.textContent = data.last_updated;
+
+        // Update all KPI values by label
+        document.querySelectorAll(".kpi").forEach(card => {
+            const label = card.querySelector(".kpi-label")?.textContent.trim();
+            const valEl = card.querySelector(".kpi-value");
+            if (!valEl) return;
+
+            if (label === "Avg Speed")         valEl.textContent = data.average_speed_MBps;
+            if (label === "Peak Speed")        valEl.textContent = data.max_speed_MBps;
+            if (label === "Data Transferred")  valEl.textContent = data.total_data_MB;
+            if (label === "Total Downloads")   valEl.textContent = data.total_downloads;
+            if (label === "Failed")            valEl.textContent = data.failed_downloads;
+            if (label === "Efficiency Score")  valEl.innerHTML   = data.efficiency_score + '<span style="font-size:14px;font-family:\'DM Sans\'">%</span>';
+            if (label === "Network Stability") valEl.textContent = data.network_stability;
+            if (label === "Speed Trend")       valEl.textContent = data.trend;
+        });
+
+        // Update charts
+        if (window.timeChartInstance) {
+            const labels = Object.keys(data.time_analysis);
+            const values = Object.values(data.time_analysis);
+            const avg    = values.map(() => data.average_speed_MBps);
+
+            timeChartInstance.data.labels                    = labels;
+            timeChartInstance.data.datasets[0].data         = values;
+            timeChartInstance.data.datasets[1].data         = avg;
+            timeChartInstance.update();
+        }
+
+        if (window.distChartInstance) {
+            distChartInstance.data.datasets[0].data = [
+                data.speed_distribution.fast,
+                data.speed_distribution.medium,
+                data.speed_distribution.slow
+            ];
+            distChartInstance.update();
+        }
     });
 </script>
 </body>

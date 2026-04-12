@@ -2,9 +2,12 @@
 app.py — NetPulse Flask server
 Serves the network analytics dashboard at http://localhost:5000
 """
-
+from gevent import monkey
+monkey.patch_all()
 import json
 import logging
+import os
+import threading
 from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO
 
@@ -15,11 +18,10 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
 
 
 def load_summary() -> dict:
-    """Load summary.json; return empty dict with defaults on failure."""
     defaults = {
         "average_speed_MBps": 0,
         "max_speed_MBps":     0,
@@ -43,7 +45,7 @@ def load_summary() -> dict:
     try:
         with open("summary.json") as f:
             data = json.load(f)
-        defaults.update(data)   # merge so missing keys get defaults
+        defaults.update(data)
         return defaults
     except FileNotFoundError:
         log.warning("summary.json not found — serving empty dashboard.")
@@ -51,6 +53,23 @@ def load_summary() -> dict:
     except json.JSONDecodeError as e:
         log.error(f"Malformed summary.json: {e}")
         return defaults
+
+
+def watch_summary():
+    """Watch summary.json for changes and push to browser automatically."""
+    last_modified = None
+    while True:
+        try:
+            mtime = os.path.getmtime("summary.json")
+            if last_modified is None:
+                last_modified = mtime
+            elif mtime != last_modified:
+                last_modified = mtime
+                log.info("summary.json changed — pushing update to browser")
+                socketio.emit("summary_update", load_summary())
+        except FileNotFoundError:
+            pass
+        socketio.sleep(1)
 
 
 @app.route("/")
@@ -62,24 +81,20 @@ def index():
 
 @app.route("/api/summary")
 def api_summary():
-    """JSON endpoint — useful for live polling from the frontend."""
     return jsonify(load_summary())
-    
+
+
 @socketio.on("request_update")
 def handle_update_request():
-    """Client can ask for a fresh push anytime."""
-    emit_summary()
+    socketio.emit("summary_update", load_summary())
 
-def emit_summary():
-    summary = load_summary()
-    socketio.emit("summary_update", summary)
 
-@socketio.on("push_update")
-def handle_push():
-    """Scheduler calls this after each analyzer run."""
-    emit_summary()
+@socketio.on("connect")
+def handle_connect():
+    log.info("Browser connected")
 
 
 if __name__ == "__main__":
-    log.info("Starting NetPulse dashboard at http://localhost:5000")
-    socketio.run(app, debug=True)
+    log.info("Starting NetPulse dashboard at http://localhost:5001")
+    socketio.start_background_task(watch_summary)
+    socketio.run(app, host="127.0.0.1", port=5001, debug=False)

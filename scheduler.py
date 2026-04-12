@@ -58,17 +58,15 @@ for i in range(TOTAL_RUNS):
         log.error(f"analyzer.py failed:\n{result_an.stderr}")
     else:
         log.info("analyzer.py completed successfully")
-    
-    if result_an.returncode == 0:
-            log.info("analyzer.py completed successfully")
-            # Notify dashboard over socket
-            try:
-                sio = sio_client.SimpleClient()
-                sio.connect("http://localhost:5000")
-                sio.emit("push_update", {})
-                sio.disconnect()
-            except Exception as e:
-                log.warning(f"Socket notify skipped: {e}")
+        try:
+            sio = sio_client.SimpleClient()
+            sio.connect("http://localhost:5001", transports=["websocket"])
+            sio.emit("push_update", {})
+            log.info("Socket push sent successfully")
+            time.sleep(1)
+            sio.disconnect()
+        except Exception as e:
+            log.warning(f"Socket notify skipped: {e}")
 
     if i < TOTAL_RUNS - 1:
         next_run = datetime.fromtimestamp(time.time() + INTERVAL).strftime("%H:%M:%S")
