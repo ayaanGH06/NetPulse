@@ -32,7 +32,6 @@
             padding: 32px 24px 60px;
         }
 
-        /* ── HEADER ── */
         header {
             display: flex;
             align-items: flex-end;
@@ -73,7 +72,6 @@
             50%       { opacity: 0.4; transform: scale(0.7); }
         }
 
-        /* ── ALERT ── */
         .alert {
             display: flex;
             align-items: center;
@@ -89,7 +87,6 @@
         .alert-icon { font-size: 18px; flex-shrink: 0; }
         .alert strong { color: #fff; font-family: 'DM Mono', monospace; }
 
-        /* ── KPI GRID ── */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -141,7 +138,6 @@
         .kpi.warn   .kpi-value  { color: var(--warn); }
         .kpi.blue   .kpi-value  { color: var(--accent2); }
 
-        /* ── BADGE ── */
         .badge {
             display: inline-block;
             font-size: 11px;
@@ -154,7 +150,6 @@
         .badge-red    { background: rgba(255,107,74,0.12); color: var(--warn); }
         .badge-blue   { background: rgba(79,127,255,0.12); color: var(--accent2); }
 
-        /* ── CHARTS ROW ── */
         .charts-row {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -178,7 +173,6 @@
         }
         canvas { max-height: 220px; }
 
-        /* ── TABLE ── */
         .table-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -256,17 +250,12 @@
             transition: width 0.4s ease;
         }
         .speed-val { font-family: 'DM Mono', monospace; font-size: 12px; min-width: 48px; }
-
         .time-cell {
             font-family: 'DM Mono', monospace;
             font-size: 12px;
             color: var(--muted);
         }
 
-        .status-ok   { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 11px; }
-        .status-fail { color: var(--warn);   font-family: 'DM Mono', monospace; font-size: 11px; }
-
-        /* ── FOOTER ── */
         footer {
             margin-top: 40px;
             text-align: center;
@@ -275,7 +264,6 @@
             color: var(--muted);
         }
 
-        /* ── EMPTY STATE ── */
         .empty-state {
             padding: 60px 20px;
             text-align: center;
@@ -298,7 +286,6 @@
 
 <div class="container" style="max-width:1140px;margin:auto;">
 
-    <!-- HEADER -->
     <header>
         <div>
             <div class="logo">Net<span>Pulse</span></div>
@@ -310,18 +297,17 @@
         </div>
     </header>
 
-    <!-- ALERT -->
-    {% if summary.congestion_hours %}
-    <div class="alert">
+    <!-- ALERT — id added so JS can find it reliably -->
+    <div id="congestion-alert" style="display:none;" class="alert">
         <span class="alert-icon">⚠</span>
-        <div>
-            Congestion detected at
-            {% for t in summary.congestion_hours %}
-                <strong>{{ t }}</strong>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            — speeds dropped below 70% of average
-        </div>
+        <div id="congestion-text"></div>
     </div>
+    {% if summary.congestion_hours %}
+    <script>
+        document.getElementById("congestion-alert").style.display = "flex";
+        document.getElementById("congestion-text").innerHTML =
+            "Congestion detected at {% for t in summary.congestion_hours %}<strong>{{ t }}</strong>{% if not loop.last %}, {% endif %}{% endfor %} — speeds dropped below 70% of average";
+    </script>
     {% endif %}
 
     <!-- KPI ROW 1 -->
@@ -394,7 +380,6 @@
             <h3>Download Log</h3>
             <span class="row-count">{{ table | length }} entries</span>
         </div>
-
         {% if table %}
         <table>
             <thead>
@@ -404,7 +389,7 @@
                     <th>Time</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="download-tbody">
                 {% for row in table %}
                 <tr>
                     <td class="url-cell" title="{{ row.url }}">{{ row.url }}</td>
@@ -433,7 +418,6 @@
         {% endif %}
     </div>
 
-    <!-- SLOWEST DOWNLOAD CALLOUT -->
     {% if summary.slowest_download %}
     <div style="margin-top:12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:12px;padding:16px 20px;display:flex;gap:20px;align-items:center;">
         <span style="font-size:20px;">🐢</span>
@@ -450,7 +434,6 @@
 <script>
     const MAX_SPEED = {{ summary.max_speed_MBps or 1 }};
 
-    // ── TIME SERIES CHART ──
     const timeLabels = [{% for k in summary.time_analysis %}"{{ k }}",{% endfor %}];
     const timeData   = [{% for k, v in summary.time_analysis.items() %}{{ v }},{% endfor %}];
     const avgLine    = timeData.map(() => {{ summary.average_speed_MBps or 0 }});
@@ -502,7 +485,6 @@
         }
     });
 
-    // ── DISTRIBUTION DOUGHNUT ──
     window.distChartInstance = new Chart(document.getElementById("distChart"), {
         type: "doughnut",
         data: {
@@ -530,6 +512,7 @@
         }
     });
 </script>
+
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 <script>
     const socket = io("http://127.0.0.1:5001");
@@ -545,21 +528,20 @@
     socket.on("summary_update", (data) => {
         console.log("[NetPulse] Dashboard updated", data.last_updated);
 
-        // Flash the dot
+        // ── Flash the live dot ──
         const dot = document.querySelector(".live-dot");
         dot.style.background = "#fff";
         setTimeout(() => dot.style.background = "var(--accent)", 400);
 
-        // Update timestamp
+        // ── Timestamp ──
         const ts = document.querySelector(".timestamp strong");
         if (ts) ts.textContent = data.last_updated;
 
-        // Update all KPI values by label
+        // ── KPI cards ──
         document.querySelectorAll(".kpi").forEach(card => {
             const label = card.querySelector(".kpi-label")?.textContent.trim();
             const valEl = card.querySelector(".kpi-value");
             if (!valEl) return;
-
             if (label === "Avg Speed")         valEl.textContent = data.average_speed_MBps;
             if (label === "Peak Speed")        valEl.textContent = data.max_speed_MBps;
             if (label === "Data Transferred")  valEl.textContent = data.total_data_MB;
@@ -570,18 +552,18 @@
             if (label === "Speed Trend")       valEl.textContent = data.trend;
         });
 
-        // Update charts
+        // ── Time series chart ──
         if (window.timeChartInstance) {
             const labels = Object.keys(data.time_analysis);
             const values = Object.values(data.time_analysis);
             const avg    = values.map(() => data.average_speed_MBps);
-
-            timeChartInstance.data.labels                    = labels;
-            timeChartInstance.data.datasets[0].data         = values;
-            timeChartInstance.data.datasets[1].data         = avg;
+            timeChartInstance.data.labels            = labels;
+            timeChartInstance.data.datasets[0].data  = values;
+            timeChartInstance.data.datasets[1].data  = avg;
             timeChartInstance.update();
         }
 
+        // ── Distribution doughnut ──
         if (window.distChartInstance) {
             distChartInstance.data.datasets[0].data = [
                 data.speed_distribution.fast,
@@ -590,7 +572,45 @@
             ];
             distChartInstance.update();
         }
-    });
+
+        // ── Congestion alert ──
+        const alertEl   = document.getElementById("congestion-alert");
+        const alertText = document.getElementById("congestion-text");
+        if (data.congestion_hours && data.congestion_hours.length > 0) {
+            alertText.innerHTML = "Congestion detected at " +
+                data.congestion_hours.map(t => `<strong>${t}</strong>`).join(", ") +
+                " — speeds dropped below 70% of average";
+            alertEl.style.display = "flex";
+        } else {
+            alertEl.style.display = "none";
+        }
+
+        // ── Download log table ──
+        const tbody    = document.getElementById("download-tbody");
+        const rowCount = document.querySelector(".row-count");
+        if (tbody && data.detailed_downloads) {
+            tbody.innerHTML = data.detailed_downloads.map(row => `
+                <tr>
+                    <td class="url-cell" title="${row.url}">${row.url}</td>
+                    <td>
+                        <div class="speed-bar-wrap">
+                            <span class="speed-val">${row.speed_MBps}</span>
+                            <div class="speed-bar-bg">
+                                <div class="speed-bar-fill" style="
+                                    width: ${Math.min(Math.max(data.max_speed_MBps ? row.speed_MBps / data.max_speed_MBps * 100 : 0, 0), 100)}%;
+                                    background: ${row.speed_MBps > 2 ? 'var(--fast)' : row.speed_MBps > 1 ? 'var(--medium)' : 'var(--slow)'};
+                                "></div>
+                            </div>
+                            <span style="font-size:10px;color:var(--muted);">MB/s</span>
+                        </div>
+                    </td>
+                    <td class="time-cell">${row.time}</td>
+                </tr>
+            `).join("");
+        }
+        if (rowCount) rowCount.textContent = `${data.detailed_downloads.length} entries`;
+
+    }); // ← end of summary_update handler
 </script>
 </body>
 </html>
