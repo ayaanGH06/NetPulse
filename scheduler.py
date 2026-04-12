@@ -8,6 +8,7 @@ import subprocess
 import logging
 from datetime import datetime
 import sys
+import socketio as sio_client
 sys.stdout.reconfigure(encoding='utf-8')
 
 # ── LOGGING ──────────────────────────────────────────────────────────────────
@@ -23,12 +24,12 @@ log = logging.getLogger(__name__)
 
 TOTAL_RUNS = 5          # one run per hour over 24 hours
 INTERVAL   = 10        # seconds between runs (1 hour)
-                         # ↑ set to a smaller value (e.g. 10) for demo/testing
+
 
 # ── STARTUP CHECKS ────────────────────────────────────────────────────────────
 import os
 
-# Warn if templates folder is missing (Flask will 404 silently otherwise)
+# Warn if templates folder is missing 
 if not os.path.exists(os.path.join("templates", "index.html")):
     log.warning("templates/index.html not found — Flask dashboard will not render correctly.")
 
@@ -57,6 +58,17 @@ for i in range(TOTAL_RUNS):
         log.error(f"analyzer.py failed:\n{result_an.stderr}")
     else:
         log.info("analyzer.py completed successfully")
+    
+    if result_an.returncode == 0:
+            log.info("analyzer.py completed successfully")
+            # Notify dashboard over socket
+            try:
+                sio = sio_client.SimpleClient()
+                sio.connect("http://localhost:5000")
+                sio.emit("push_update", {})
+                sio.disconnect()
+            except Exception as e:
+                log.warning(f"Socket notify skipped: {e}")
 
     if i < TOTAL_RUNS - 1:
         next_run = datetime.fromtimestamp(time.time() + INTERVAL).strftime("%H:%M:%S")

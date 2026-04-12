@@ -6,6 +6,7 @@ Serves the network analytics dashboard at http://localhost:5000
 import json
 import logging
 from flask import Flask, render_template, jsonify
+from flask_socketio import SocketIO
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,6 +15,7 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 def load_summary() -> dict:
@@ -62,8 +64,22 @@ def index():
 def api_summary():
     """JSON endpoint — useful for live polling from the frontend."""
     return jsonify(load_summary())
+    
+@socketio.on("request_update")
+def handle_update_request():
+    """Client can ask for a fresh push anytime."""
+    emit_summary()
+
+def emit_summary():
+    summary = load_summary()
+    socketio.emit("summary_update", summary)
+
+@socketio.on("push_update")
+def handle_push():
+    """Scheduler calls this after each analyzer run."""
+    emit_summary()
 
 
 if __name__ == "__main__":
     log.info("Starting NetPulse dashboard at http://localhost:5000")
-    app.run(debug=True)
+    socketio.run(app, debug=True)

@@ -530,5 +530,26 @@
         }
     });
 </script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script>
+    const socket = io();
+
+    socket.on("connect", () => {
+        console.log("[NetPulse] Socket connected");
+    });
+
+    socket.on("summary_update", (data) => {
+        // Update KPI values without a page reload
+        document.querySelector(".kpi.accent .kpi-value").textContent = data.average_speed_MBps;
+        document.querySelector(".kpi.blue .kpi-value").textContent   = data.max_speed_MBps;
+
+        // Flash the live dot green briefly to signal an update
+        const dot = document.querySelector(".live-dot");
+        dot.style.background = "#fff";
+        setTimeout(() => dot.style.background = "var(--accent)", 400);
+
+        console.log("[NetPulse] Dashboard updated", data.last_updated);
+    });
+</script>
 </body>
 </html>
